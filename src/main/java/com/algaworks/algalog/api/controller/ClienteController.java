@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,13 +64,13 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente store(@RequestBody Cliente cliente) {
+	public Cliente store(@Validated @RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 //		return null;
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> update(@PathVariable long id, @RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> update(@PathVariable long id, @Validated @RequestBody Cliente cliente) {
 		if (!clienteRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}	
